@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Portofolio Pribadi </title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+<!-- Font Awesome for icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+<style>
+  :root {
+    --primary-color: #6c63ff;
+    --primary-color-dark: #574fd5;
+    --secondary-color: #ffffff;
+    --accent-color: #ff6584;
+    --bg-gradient-start: #2c3e50;
+    --bg-gradient-end: #4ca1af;
+    --text-color: #f4f4f9;
+    --text-light: #cbd5e1;
+    --font-primary: 'Poppins', sans-serif;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: var(--font-primary);
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    color: var(--text-color);
+    scroll-behavior: smooth;
+  }
+  header {
+    position: center;
+    width: 100%;
+    background: rgba(255 255 255 / 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 12px rgb(0 0 0 / 0.3);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+  }
+  nav {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+  }
+  nav .logo {
+    font-weight: 700;
+    font-size: 1.75rem;
+    color: var(--primary-color);
+    cursor: default;
+    text-shadow: 0 2px 6px rgba(108, 99, 255, 0.7);
+    user-select: none;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+  nav ul li a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 1rem;
+    position: relative;
+    padding: 0.25rem 0;
+    transition: color 0.3s, filter 0.3s;
+  }
+  nav ul li a:hover,
+  nav ul li a.active {
+    color: var(--accent-color);
+    filter: drop-shadow(0 0 4px var(--accent-color));
+  }
+  nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--accent-color);
+    transition: width 0.3s ease;
+  }
+  nav ul li a:hover::after,
+  nav ul li a.active::after {
+    width: 100%;
+  }
+  main {
+    max-width: 960px;
+    margin: 7rem auto 4rem;
+    padding: 0 1.5rem;
+  }
+  section {
+    margin-bottom: 5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+  h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+    border-radius: 4px;
+  }
+  /* About */
+  #about p {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--text-light);
+    max-width: 700px;
+  }
+  /* Projects */
+  #projects .project-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    gap: 2rem;
+  }
+  .project-card {
+    background: rgba(255 255 255 / 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: var(--text-light);
+    border: 1px solid transparent;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    cursor: pointer;
+  }
+  .project-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 10px 30px rgba(108, 99, 255, 0.7);
+    border-color: var(--primary-color);
+    color: var(--secondary-color);
+  }
+  .project-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-shadow: 0 0 10px rgba(108, 99, 255, 0.6);
+  }
+  .project-card p {
+    flex-grow: 1;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+  }
+  .project-card a {
+    align-self: flex-start;
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    padding: 0.6rem 1.3rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(255, 101, 132, 0.7);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+  .project-card a:hover {
+    background: var(--primary-color);
+    box-shadow: 0 6px 15px rgba(108, 99, 255,0.8);
+  }
+  /* Skills */
+  #skills ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+  }
+  #skills ul li {
+    background: var(--primary-color-dark);
+    color: var(--secondary-color);
+    padding: 0.65rem 1.2rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 4px 14px rgb(108 99 255 / 0.5);
+    transition: background 0.3s ease;
+    cursor: default;
+  }
+  #skills ul li:hover {
+    background: var(--accent-color);
+    box-shadow: 0 6px 20px rgb(255 101 132 / 0.7);
+  }
+  /* Timeline style for Skills - optional fancy variant removed for simplicity */
+
+  /* Contact */
+  #contact form {
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  #contact label {
+    font-weight: 700;
+  }
+  #contact input, #contact textarea {
+    padding: 0.6rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255 255 255 / 0.15);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.15);
+    color: var(--text-light);
+    font-family: var(--font-primary);
+    transition: background 0.3s ease;
+    resize: vertical;
+    outline-offset: 2px;
+    outline-color: transparent;
+  }
+  #contact input::placeholder,
+  #contact textarea::placeholder {
+    color: #d1d5db;
+  }
+  #contact input:focus, #contact textarea:focus {
+    background: rgba(255 255 255 / 0.35);
+    outline-color: var(--accent-color);
+    box-shadow: 0 0 8px var(--accent-color);
+  }
+  #contact button {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    font-weight: 700;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    padding: 0.7rem 2rem;
+    font-size: 1.1rem;
+    box-shadow: 0 6px 20px rgba(255 101 132,0.7);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    align-self: flex-start;
+  }
+  #contact button:hover {
+    background: var(--primary-color);
+    box-shadow: 0 8px 30px rgba(108, 99, 255, 0.8);
+  }
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    border-top: 1px solid rgba(255 255 255 / 0.15);
+  }
+  /* Social Icons */
+  .social-icons {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: start;
+    gap: 1.1rem;
+  }
+  .social-icons a {
+    color: var(--text-light);
+    font-size: 1.5rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  .social-icons a:hover {
+    color: var(--accent-color);
+    transform: scale(1.2);
+  }
+  /* Responsive adjustments */
+  @media (max-width: 670px) {
+    nav ul {
+      gap: 1rem;
+      font-size: 0.95rem;
+    }
+    main {
+      margin: 6rem auto 3rem;
+      padding: 0 1rem;
+    }
+    #projects .project-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <nav>
+    <div class="logo">Muhammad Fajar Ginastiar</div>
+    <ul>
+      <li><a href="#about" class="nav-link active">Tentang</a></li>
+      <li><a href="#projects" class="nav-link">Proyek</a></li>
+      <li><a href="#skills" class="nav-link">Keahlian</a></li>
+      <li><a href="#contact" class="nav-link">Kontak</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <section id="about" class="section">
+    <h2>Tentang Saya</h2>
+    <p>Halo! .</p>
+    <div class="social-icons" aria-label="Media sosial">
+      <a href="https://github.com/Fajar-spec" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/username" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://twitter.com/username" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="https://wa.me/6289696733343" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+  <a href="https://instagram.com/gnass.www" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+  </section>
+  <section id="projects" class="section">
+    <h2>Proyek</h2>
+    <div class="project-list">
+      <article class="project-card">
+        <h3>Website Pengadilan Agama Simalugun</h3>
+        <p>Pembuatan website Pengadilan Agama Simalugun</p>
+        <a href="https://github.com/Fajar-spec/portfolio" target="_blank" rel="noopener noreferrer" aria-label="Kode Website Portfolio">Lihat website</a>
+      </article>
+      <article class="project-card">
+        <h3>Aplikasi ToDo List</h3>
+        <p>Aplikasi manajemen tugas harian dengan fitur tambah, hapus, dan tandai selesai.</p>
+        <a href="https://github.com/Fajar-spec/todo-app" target="_blank" rel="noopener noreferrer" aria-label="Kode Aplikasi ToDo List">Lihat Kode</a>
+      </article>
+      <article class="project-card">
+        <h3>Blog Pribadi</h3>
+        <p>Platform blog sederhana menggunakan teknologi statis untuk menulis artikel dan berbagi cerita.</p>
+        <a href="https://github.com/Fajar-spec/blog" target="_blank" rel="noopener noreferrer" aria-label="Kode Blog Pribadi">Lihat Kode</a>
+      </article>
+    </div>
+  </section>
+  <section id="skills" class="section">
+    <h2>Keahlian</h2>
+    <ul>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>Git & GitHub</li>
+      <li>Responsive Design</li>
+    </ul>
+  </section>
+  <section id="contact" class="section">
+    <h2>Kontak</h2>
+    <form onsubmit="handleSubmit(event)" aria-label="Formulir kontak">
+      <label for="name">Nama</label>
+      <input type="text" id="name" name="name" placeholder="Nama Anda" required autocomplete="name" />
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="email@domain.com" required autocomplete="email" />
+      <label for="message">Pesan</label>
+      <textarea id="message" name="message" placeholder="Tulis pesan Anda..." rows="4" required></textarea>
+      <button type="submit">Kirim</button>
+    </form>
+  </section>
+</main>
+<footer>
+  &copy; 2025 Muhammad Fajar Ginastiar. Semua hak cipta dilindungi.
+</footer>
+<script>
+  function handleSubmit(event) {
+    event.preventDefault();
+    const name = event.target.name.value.trim();
+    const email = event.target.email.value.trim();
+    const message = event.target.message.value.trim();
+    if(name && email && message) {
+      alert(`Terima kasih, ${name}! Pesan Anda telah terkirim.`);
+      event.target.reset();
+    } else {
+      alert('Mohon isi semua bidang formulir.');
+    }
+  }
+
+  // Scroll animation fade in
+  function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return rect.top <= (window.innerHeight || document.documentElement.clientHeight) - 100;
+  }
+
+  function scrollAnimation() {
+    const sections = document.querySelectorAll('.section');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    sections.forEach(section => {
+      if(isInViewport(section)) {
+        section.classList.add('visible');
+      }
+    });
+
+    projectCards.forEach(card => {
+      if(isInViewport(card)) {
+        card.classList.add('visible');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', scrollAnimation);
+  window.addEventListener('load', () => {
+    scrollAnimation();
+    // Navigation active link switching
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    function onScroll() {
+      let currentIndex = 0;
+      sections.forEach((section, i) => {
+        if(window.scrollY >= section.offsetTop - 80) {
+          currentIndex = i;
+        }
+      });
+      navLinks.forEach(link => link.classList.remove('active'));
+      if(navLinks[currentIndex]) {
+        navLinks[currentIndex].classList.add('active');
+      }
+    }
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+  });
+</script>
+</body>
+</html>
+
